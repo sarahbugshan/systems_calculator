@@ -119,7 +119,7 @@ def mode_switch_calculator():
 
 def code_switch_calculator():
     print("What's the process size that's swapping into the hard disk? (in Mb)")
-    process_size = int(input())
+    process_size = float(input())
     print("What's the transfer rate of hard disk? (in Mb/s)")
     transfer_rate = int(input())
     print("Is the latency in μs (enter 1) or ms (enter 2)?")
@@ -130,10 +130,16 @@ def code_switch_calculator():
         swap_out_time = (process_size / transfer_rate) * 1000
         context_switch_swap_time = float(swap_out_time * 2) + (2 * latency)
         print("Total context switch swapping component time is " + str(context_switch_swap_time) + " ms")
-    
+    if choice == 2:
+        print("What's the latency in (in ms)?")
+        latency = float(input()) 
+        swap_out_time = (process_size / transfer_rate) * 1000
+        context_switch_swap_time = float(swap_out_time * 2) + (2 * latency)
+        print("Total context switch swapping component time is " + str(context_switch_swap_time) + " ms")
+
 def slowdown_factor_calculator():
     print("What's the process size? (in Mb)")
-    process_size = int(input())
+    process_size = float(input())
     print("What's the time in runs normally in? (in ms)")
     run_time = int(input())
     print("What's the average time between context switching? (in μs)")
