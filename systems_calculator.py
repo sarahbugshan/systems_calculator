@@ -121,7 +121,7 @@ def code_switch_calculator():
     print("What's the process size that's swapping into the hard disk? (in Mb)")
     process_size = float(input())
     print("What's the transfer rate of hard disk? (in Mb/s)")
-    transfer_rate = int(input())
+    transfer_rate = float(input())
     print("Is the latency in μs (enter 1) or ms (enter 2)?")
     choice = int(input())
     if choice == 1:
