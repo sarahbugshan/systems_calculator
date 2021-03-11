@@ -184,7 +184,8 @@ def eat_calculator():
     base_memory_time = int(input())
     print("What's the average page-fault service time (in ms)")
     page_fault = int(input()) * 1000000
-    p = 1/1000
+    print("What's the page-fault rate (in ms)")
+    p = float(input())
     a = base_memory_time
     s = page_fault
     eat = a + (p * s)
