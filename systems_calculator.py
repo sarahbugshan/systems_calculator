@@ -181,11 +181,11 @@ def paging_internal_fragmentation_calculator():
 
 def eat_calculator():
     print("What's the base memory time? (in ns)")
-    base_memory_time = int(input())
+    base_memory_time = int(input(220))
     print("What's the average page-fault service time (in ms)")
-    page_fault = int(input()) * 1000000
+    page_fault = int(input(7)) * 1000000
     print("What's the page-fault rate (in ms)")
-    p = float(input())
+    p = float(input(1.1x(10^-5))
     a = base_memory_time
     s = page_fault
     eat = a + (p * s)
