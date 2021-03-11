@@ -117,6 +117,77 @@ def mode_switch_calculator():
         mode_switches = switched_processes * mode_switch_number
         print("The number of mode switches due to interruprs by the time program 1 has spent " + str(program_1_time) + " times running on the CPU is " + str(int(mode_switches)) + ".")
 
+def code_switch_calculator():
+    print("What's the process size that's swapping into the hard disk? (in Mb)")
+    process_size = int(input())
+    print("What's the transfer rate of hard disk? (in Mb/s)")
+    transfer_rate = int(input())
+    print("Is the latency in μs (enter 1) or ms (enter 2)?")
+    choice = int(input())
+    if choice == 1:
+        print("What's the latency in (in μs)?")
+        latency = float(input()) / 1000
+        swap_out_time = (process_size / transfer_rate) * 1000
+        context_switch_swap_time = float(swap_out_time * 2) + (2 * latency)
+        print("Total context switch swapping component time is " + str(context_switch_swap_time) + " ms")
+    
+def slowdown_factor_calculator():
+    print("What's the process size? (in Mb)")
+    process_size = int(input())
+    print("What's the time in runs normally in? (in ms)")
+    run_time = int(input())
+    print("What's the average time between context switching? (in μs)")
+    context_switch_time = float(input()) / 1000
+    print("What's the time taken to transfer from disk (in Mb/s)")
+    transfer_time = int(input())
+    t_fast = float(run_time) + context_switch_time
+    print(t_fast)
+    t_slow = float(run_time) + context_switch_time + (2*(process_size/transfer_time)*1000)
+    print(t_slow)
+    slowdown_factor = t_slow / t_fast
+    print("The slowdown factor is " + str(slowdown_factor))
+
+def paging_calculator():
+    print("What's the page size? (in bytes)")
+    page_size = int(input())
+    print("What's the frame size (in kB)")
+    frame_size = int(input())
+    bits = page_size * 8
+    frames = 2 ** bits
+    frame_size_bits = frame_size * 1024
+    physical_memory = frame_size_bits * frames
+    print("The amount of frames are " + str(frames) + " or 2^" + str(int(math.log(frames, 2))))
+    print("The amount of physical memory that can be addressed is " + str(physical_memory) + " bytes or " + str((float(physical_memory)/1000000000)) + " gigabytes or " + str((float(physical_memory)/1000000000000)) + " terabytes")
+
+def paging_internal_fragmentation_calculator():
+    print("What's the page size? (in bytes)")
+    page_size = int(input())
+    print("What's the process size (in bytes)")
+    process_size = int(input())
+    pages = float("%0.2f" % (process_size/page_size))
+    pages_round_up = math.ceil(pages)
+    frac, whole = math.modf(pages)
+    internal_fragmentation = page_size - math.ceil(frac * page_size)
+    print("There are " + str(pages_round_up) + " pages required")
+    print("The internal fragmentation is " + str(internal_fragmentation) + " bytes")
+    print("Best case fragmentation is a full frame with no fragmentation")
+    print("Worst case fragmentation is a frame with 1 byte")
+
+def eat_calculator():
+    print("What's the base memory time? (in ns)")
+    base_memory_time = int(input())
+    print("What's the average page-fault service time (in ms)")
+    page_fault = int(input()) * 1000000
+    p = 1/1000
+    a = base_memory_time
+    s = page_fault
+    eat = a + (p * s)
+    slowdown_factor = eat / base_memory_time
+    print("The effective access time is " + str(eat) + " ns")
+    print("The slowdown factor is " + str(slowdown_factor))
+
+
+
 print('What do you need to find?')
 print('-------------------------')
 print('1 - Number of memory locations from instructions and opcode?')
@@ -128,6 +199,13 @@ print('6 - Size of region in main memory that contains locations referenced in C
 print('7 - Assuming 5 state process model, minimum number of processes in ready and blocked states before any process terminates?')
 print('8 - Average turnaround time from proccesses time and avergae turnaround time?')
 print('9 - Number of times mode switches occur due to interrupts from time a program has spent x units running?')
+print('10 - Context switch time with swapping')
+print('11 - Slowdown factor calculator')
+print('12 - Paging calculator')
+print('13 - Paging internal fragmentation calculator')
+print('14 - EAT calculator with one memory reference in every 1000 results in a page-fault')
+
+
 
 
 
@@ -152,6 +230,15 @@ elif choice == 8:
     tuarnaround_time_calculator()
 elif choice == 9:
     mode_switch_calculator()
-
+elif choice == 10:
+    code_switch_calculator()
+elif choice == 11:
+    slowdown_factor_calculator()
+elif choice == 12:
+    paging_calculator()
+elif choice == 13:
+    paging_internal_fragmentation_calculator()
+elif choice == 14:
+    eat_calculator()
 
 
